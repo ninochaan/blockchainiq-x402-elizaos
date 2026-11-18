@@ -65,6 +65,8 @@ export interface PaymentPayload {
   x402Version: number;
   scheme: string;
   network: string;
+  resource?: Record<string, unknown>;
+  accepted: PaymentRequirement;
   payload: { signature: Hex; authorization: Authorization };
 }
 
@@ -169,6 +171,8 @@ export async function buildPaymentPayload(
     x402Version: paymentRequired.x402Version ?? 2,
     scheme: req.scheme,
     network: req.network,
+    resource: paymentRequired.resource,
+    accepted: req,
     payload: { signature, authorization },
   };
 }
